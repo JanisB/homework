@@ -34,5 +34,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin'], function(){
 });
 
 //site
-Route::get('/news', [NewsController::class, 'index']);
-Route::get('/news/{id}', [NewsController::class, 'show'])->where('id', '\d+');
+Route::get('/news', [NewsController::class, 'index'])
+->name('news');
+Route::get('/news/{id}', [NewsController::class, 'show'])
+->where('id', '\d+')
+->name('news.show');
