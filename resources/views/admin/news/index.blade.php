@@ -4,7 +4,7 @@
 <main>
     <div class="container-fluid px-4">
         <h1 class="mt-4">News</h1>
-        <a href="('admin.news.create')" class="btn btn-primary" style="float: right;">Add news</a>
+        <a href="{{ route('admin.news.create') }}" class="btn btn-primary" style="float: right;">Add news</a>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item active">News List</li>
         </ol>
@@ -32,7 +32,7 @@
                             <td>{{ $news['title'] }}</td>
                             <td>{{ $news['description'] }}</td>
                             <td>{{ now()->format('d-m-Y H:i') }}</td>
-                            <td><a href="{{ route('admin.news') }}" style="font-size: 12px;">Edit</a> &nbsp; | &nbsp; 
+                            <td><a href="{{ route('admin.news.index') }}" style="font-size: 12px;">Edit</a> &nbsp; | &nbsp; 
                                 <a href="javascript:;" style="font-size: 12px; color:red;">Delet</a>
                             </td>
                         </tr>

@@ -4,7 +4,7 @@
 <main>
     <div class="container-fluid px-4">
         <h1 class="mt-4">Categorys</h1>
-        <a href="('admin.categories.create')" class="btn btn-primary" style="float: right;">Add Category</a>
+        <a href="{{ route('admin.categories.create') }}" class="btn btn-primary" style="float: right;">Add Category</a>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item active">Categorys List</li>
         </ol>
@@ -32,7 +32,7 @@
                             <td>{{ $Category['title'] }}</td>
                             <td>{{ $Category['description'] }}</td>
                             <td>{{ now()->format('d-m-Y H:i') }}</td>
-                            <td><a href="{{ route('admin.news') }}" style="font-size: 12px;">Edit</a> &nbsp; | &nbsp; 
+                            <td><a href="{{ route('admin.news.index') }}" style="font-size: 12px;">Edit</a> &nbsp; | &nbsp; 
                                 <a href="javascript:;" style="font-size: 12px; color:red;">Delet</a>
                             </td>
                         </tr>

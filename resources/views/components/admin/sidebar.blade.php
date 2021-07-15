@@ -2,16 +2,16 @@
     <div class="sb-sidenav-menu">
         <div class="nav">
             <div class="sb-sidenav-menu-heading">Core</div>
-            <a class="nav-link" href="/admin">
+            <a class="nav-link @if(request()->is('admin')) active @endif" href="/admin">
                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                 Control Planel
             </a>
             <div class="sb-sidenav-menu-heading">Main</div>
-            <a class="nav-link" href="{{ route('admin.categories') }}">
+            <a class="nav-link @if(request()->routeIs('admin.categories.*')) active @endif" href="{{ route('admin.categories.index') }}">
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                 Categorys
             </a>
-            <a class="nav-link" href="{{ route('admin.news') }}">
+            <a class="nav-link @if(request()->routeIs('admin.news.*')) active @endif" href="{{ route('admin.news.index') }}">
                 <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                 News
             </a>

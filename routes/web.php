@@ -19,7 +19,10 @@ use App\Http\Controllers\WelcomeController as WelcomeController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return response()->json([
+        'title' => 'example',
+        'description' => 'ExampleDescrip'
+    ]);
 });
 
 Route::get('/info', function () {
@@ -30,14 +33,12 @@ Route::get('/hello/{name}', function (string $name) {
     return "Hello, {$name}";
 });
 //admin
-Route::group(['prefix' => 'admin', 'as' => 'admin'], function(){
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
+    Route::view('/', 'admin.index');
     Route::resource('categories', AdminCategoryController::class);
     Route::resource('news', AdminNewsController::class);
 });
-Route::get('/admin/categories', [AdminCategoryController::class, 'index'])
-->name('admin.categories');
-Route::get('/admin/news', [AdminNewsController::class, 'index'])
-->name('admin.news');
+
 //site
 Route::get('/news', [NewsController::class, 'index'])
 ->name('news');
