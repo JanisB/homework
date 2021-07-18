@@ -26,13 +26,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @forelse($categoryList as $Category)
+                    @forelse($categoryList as $category)
                         <tr>
-                            <td>{{ $loop->index }}</td>
-                            <td>{{ $Category['title'] }}</td>
-                            <td>{{ $Category['description'] }}</td>
-                            <td>{{ now()->format('d-m-Y H:i') }}</td>
-                            <td><a href="{{ route('admin.news.index') }}" style="font-size: 12px;">Edit</a> &nbsp; | &nbsp; 
+                            <td>{{ $category->id }}</td>
+                            <td>{{ $category->title }}</td>
+                            <td>{{ $category->description }}</td>
+                            <td>{{ $category->created_at }}</td>
+                            <td><a href="{{ route('admin.categories.edit', ['category'=> $category->id]) }}" style="font-size: 12px;">Edit</a> &nbsp; | &nbsp; 
                                 <a href="javascript:;" style="font-size: 12px; color:red;">Delet</a>
                             </td>
                         </tr>

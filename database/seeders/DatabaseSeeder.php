@@ -1,7 +1,7 @@
 <?php
 
 namespace Database\Seeders;
-
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call([CategorySeeder::class, NewsSeeder::class]);
         // \App\Models\User::factory(10)->create();
     }
 }
