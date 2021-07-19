@@ -15,13 +15,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categoryModel = new Category();
-        $categories = \DB::table('categories')
-				->join('news', 'categories.id', '=', 'news.category_id')
-			    ->select(['news.*', 'categories.title as categoryTitle', 'categories.description as categoryDescription',
-					'categories.color as categoryColor'])
-                    ->whereBetween('news.id', [1,7])
-			    ->get();
+        $categories = Category::with('news')
+		    ->select(['id', 'title', 'description', 'created_at'])
+			->orderBy('id', 'desc')
+			->get();
+
         return view('admin.categories.index',[
             'categoryList' => $categories
         ]);
@@ -45,7 +43,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = Category::create(
+            $request->only(['title', 'color', 'description'])
+        );
+
+        if($category){
+            return redirect()->route('admin.categories.index')
+                ->with('success', 'Category created!');
+        }
+
+        return back()->with('error', 'Category failed to create!');
     }
 
     /**
@@ -67,28 +74,39 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        dd($category);
+        return view('admin.categories.edit', [
+            'category' => $category
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Categry $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $statusCategory = $category->fill(
+            $request->only(['title', 'color', 'description'])
+        )->save();
+        
+        if($statusCategory){
+            return redirect()->route('admin.categories.index')
+                ->with('success', 'Category added!');
+        }
+
+        return back()->with('error', 'Category failed!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Category $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
         //
     }

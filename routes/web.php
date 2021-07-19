@@ -43,8 +43,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
 Route::get('/news', [NewsController::class, 'index'])
 ->name('news');
 
-Route::get('/news/{id}', [NewsController::class, 'show'])
-->where('id', '\d+')
+Route::get('/news/{news}', [NewsController::class, 'show'])
+->where('news', '\d+')
 ->name('news.show');
 
 Route::get('/welcome', [WelcomeController::class, 'index'])
@@ -52,3 +52,12 @@ Route::get('/welcome', [WelcomeController::class, 'index'])
 
 Route::get('/category', [NewsCategoryController::class, 'index'])
 ->name('category');
+
+Route::get('collections', function(){
+    $collection = collect([
+        1,2,3,4,10,100,11,5,6,7,8,9,621
+    ]);
+
+    dd($collection->chunk(3));
+
+});
