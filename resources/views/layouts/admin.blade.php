@@ -5,6 +5,7 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>@section('title') GbAdmin @show</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="{{ asset('assets/admin/css/styles.css') }}" rel="stylesheet" />
@@ -36,5 +37,25 @@
         <script src="{{ asset('assets/admin/js/scripts.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="{{ asset('assets/admin/js/datatables-simple-demo.js')}}"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script>
+        $(function () {
+            $(".delete").on('click', function() {
+                if(confirm("Accept Delete?")){
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type: "DELETE",
+                        url: "admin/news/" + $(this).attr('rel'),
+                        complete: function() {
+                            alert("News Deleted!");
+                            location.reload();
+                        }
+                    })
+                }
+            });
+        });
+    </script>
     </body>
 </html>
