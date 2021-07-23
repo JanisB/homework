@@ -47,7 +47,7 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         type: "DELETE",
-                        url: "admin/news/" + $(this).attr('rel'),
+                        url: "news/" + $(this).attr('rel'),
                         complete: function() {
                             alert("News Deleted!");
                             location.reload();
