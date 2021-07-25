@@ -34,7 +34,7 @@
                             <td>{{ $category->description }}</td>
                             <td>{{ $category->created_at }}</td>
                             <td><a href="{{ route('admin.categories.edit', ['category'=> $category->id]) }}" style="font-size: 12px;">Edit</a> &nbsp; | &nbsp; 
-                                <a href="javascript:;" style="font-size: 12px; color:red;">Delet</a>
+                                <a href="javascript:;" class="delete" rel="{{ $category->id }}" style="font-size: 12px; color:red;">Delet</a>
                             </td>
                         </tr>
                     @empty
@@ -48,5 +48,7 @@
         </div>
     </div>
 </main>
-
+@push('DeleteCategory')
+<script src="{{ asset('assets/admin/js/deleteCategory.js')}}"></script>
+@endpush
 @endsection

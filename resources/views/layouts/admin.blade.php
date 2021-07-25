@@ -38,24 +38,7 @@
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
         <script src="{{ asset('assets/admin/js/datatables-simple-demo.js')}}"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script>
-        $(function () {
-            $(".delete").on('click', function() {
-                if(confirm("Accept Delete?")){
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        type: "DELETE",
-                        url: "news/" + $(this).attr('rel'),
-                        complete: function() {
-                            alert("News Deleted!");
-                            location.reload();
-                        }
-                    })
-                }
-            });
-        });
-    </script>
+        @stack('DeleteNews')
+        @stack('DeleteCategory')
     </body>
 </html>

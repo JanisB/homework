@@ -48,5 +48,8 @@
         </div>
     </div>
 </main>
-
+@push('DeleteNews')
+<script src="{{ asset('assets/admin/js/deleteNews.js')}}"></script>
+@endpush
 @endsection
+

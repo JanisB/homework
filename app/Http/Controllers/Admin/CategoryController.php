@@ -106,8 +106,14 @@ class CategoryController extends Controller
      * @param  Category $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Request $request, Category $category)
     {
-        //
+        if($request->ajax()){
+            try{
+                $category->delete();
+            }catch(\Exception $e){
+                report($e);
+            }
+        }
     }
 }
