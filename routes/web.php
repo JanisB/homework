@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\Account\IndexController as AccountController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\UserEditController as AdminUserEditController;
 use App\Http\Controllers\NewsCategoryController as NewsCategoryController;
 use App\Http\Controllers\WelcomeController as WelcomeController;
 
@@ -32,12 +34,6 @@ Route::get('/info', function () {
 Route::get('/hello/{name}', function (string $name) {
     return "Hello, {$name}";
 });
-//admin
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
-    Route::view('/', 'admin.index');
-    Route::resource('categories', AdminCategoryController::class);
-    Route::resource('news', AdminNewsController::class);
-});
 
 //site
 Route::get('/news', [NewsController::class, 'index'])
@@ -53,11 +49,30 @@ Route::get('/welcome', [WelcomeController::class, 'index'])
 Route::get('/category', [NewsCategoryController::class, 'index'])
 ->name('category');
 
-Route::get('collections', function(){
-    $collection = collect([
-        1,2,3,4,10,100,11,5,6,7,8,9,621
-    ]);
-
-    dd($collection->chunk(3));
-
+Route::get('session', function(){
+    session(['newSession' => 'newValue']);
+    if(session()->has('newSession')){
+        session()->remove('newSession');
+    }
+    return "No session";
 });
+
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/account', AccountController::class);
+    Route::get('/logout', function(){
+        \Auth::logout();
+        return redirect()->route('login');
+    })->name('logout');
+
+    //admin
+    Route::group(['prefix' => 'admin', 'middleware' => 'admin', 'as' => 'admin.'], function(){
+        Route::view('/', 'admin.index')->name('index');
+        Route::resource('categories', AdminCategoryController::class);
+        Route::resource('news', AdminNewsController::class);
+        Route::resource('users', AdminUserEditController::class);
+    });
+});
+
+Auth::routes();
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

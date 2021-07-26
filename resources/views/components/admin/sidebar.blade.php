@@ -15,6 +15,10 @@
                 <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                 News
             </a>
+            <a class="nav-link @if(request()->routeIs('admin.users.*')) active @endif" href="{{ route('admin.users.index') }}">
+                <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                Users
+            </a>
         </div>
     </div>
     <div class="sb-sidenav-footer">
