@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\SocialController;
+use App\Http\Controllers\Admin\ParserController;
 use App\Http\Controllers\Account\IndexController as AccountController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
@@ -57,8 +59,10 @@ Route::get('session', function(){
     return "No session";
 });
 
+
 Route::group(['middleware' => 'auth'], function(){
-    Route::get('/account', AccountController::class);
+    Route::get('/account', AccountController::class)
+        ->name('account');
     Route::get('/logout', function(){
         \Auth::logout();
         return redirect()->route('login');
@@ -70,7 +74,15 @@ Route::group(['middleware' => 'auth'], function(){
         Route::resource('categories', AdminCategoryController::class);
         Route::resource('news', AdminNewsController::class);
         Route::resource('users', AdminUserEditController::class);
+        Route::get('/parse', ParserController::class);
     });
+});
+
+Route::group(['middleware' => 'guest'], function() {
+	Route::get('/init/{driver?}', [SocialController::class, 'init'])
+		->name('social.init');
+	Route::get('/callback/{driver?}', [SocialController::class, 'callback'])
+		->name('social.callback');
 });
 
 Auth::routes();

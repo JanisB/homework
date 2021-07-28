@@ -32,7 +32,9 @@
                             <td>{{ $user->id }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ $user->is_admin }}</td>
+                            <td> 
+                                @if($user->is_admin) admin @else user @endif
+                            </td>
                             <td><a href="{{ route('admin.users.edit', ['user' => $user]) }}" style="font-size: 12px;">Edit</a> &nbsp; | &nbsp; 
                                 <a href="javascript:;" class="delete" rel="{{ $user->id }}" style="font-size: 12px; color:red;">Delet</a>
                             </td>

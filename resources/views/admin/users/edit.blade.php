@@ -27,8 +27,8 @@
                 <div class="from-group">
                     <label for="is_admin">Role</label>
                     <select class="form-control" name="is_admin" id="is_admin">
-                        <option @if ($user->is_admin === '1') selected @endif>1</option>
-                        <option @if ($user->is_admin === '0') selected @endif>0</option>
+                        <option @if ($user->is_admin === true) selected @endif>1</option>
+                        <option @if ($user->is_admin === false) selected @endif>0</option>
                     </select>
                 </div><br>
                 <button type="submit" class="btn btn-primary">Save</button>
