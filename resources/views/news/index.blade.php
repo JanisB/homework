@@ -11,6 +11,7 @@
                     <h3 class="post-subtitle">{!! $news->description !!}</h3>
                 </a>
                 <p class="post-meta">
+                    <img src="{{ Storage::disk('public')->url($news->imgae) }}" style="width: 130px;">
                     <strong>Category: {{ optional($news->category)->title }}</strong>
                     Posted by
                     <a href="#!">Admin</a>

@@ -13,7 +13,7 @@
             @endforeach
         @endif
         <div>
-            <form method="post" action="{{ route('admin.news.update', ['news' => $news]) }}">
+            <form method="post" action="{{ route('admin.news.update', ['news' => $news]) }} " enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="from-group">
@@ -54,3 +54,15 @@
         </div>
     </div>
 @endsection
+@push('editor')
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#description' ) )
+            .then( editor => {
+                console.log( editor );
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+@endpush 

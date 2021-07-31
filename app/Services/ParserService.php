@@ -1,9 +1,6 @@
 <?php declare(strict_types=1);
-
 namespace App\Services;
-
 use App\Contracts\Parser;
-
 class ParserService implements Parser
 {
 	public function getParsedList(string $url): array
@@ -28,5 +25,15 @@ class ParserService implements Parser
 		]);
 
 		return $data;
+	}
+
+	public function saveNewsInFile(string $url): void
+	{
+		$parsedList = $this->getParsedList($url);
+		$serialize  = json_encode($parsedList);
+		$explode = explode("/", $url);
+		$fileName = end($explode);
+
+		\Storage::append('/news/' . $fileName, $serialize);
 	}
 } 

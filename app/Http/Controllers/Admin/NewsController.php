@@ -55,7 +55,7 @@ class NewsController extends Controller
 
         $data = $request->only(['category_id', 'title', 'status', 'description']);
         $data['slug'] = Str::slug($data['title']);
-        
+    
         $news = News::create($data);
 
         if($news){
@@ -104,6 +104,14 @@ class NewsController extends Controller
         
         $data = $request->validated();
         $data['slug'] = Str::slug($data['title']);
+
+        if($request->hasFile('image')){
+            $file = $request->file('image');
+            $fileName = md5($file->getClientOriginalName() . time());
+            $fileExt = $file->getClientOriginalExtension();
+            $newsFileName = $fileName . "." . $fileExt;
+            $data['image'] = $file->storeAs('news', $newsFileName, 'public');
+        }
 
         $statusNews = $news->fill($data)->save();
         
